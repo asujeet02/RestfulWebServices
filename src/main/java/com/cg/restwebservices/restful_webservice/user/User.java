@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Past;
@@ -21,13 +23,18 @@ public class User {
 	};
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="userid")
 	private Integer id;
+	
 	@Size(min=2,message="Name should have atleast 2 characters")
 	//@JsonProperty("user_name")
+	@Column(name="username")
 	private String name;
+	
 	//@JsonProperty("birth_date")
 	@Past(message="Birth Date should be in the past")
+	@Column(name="birthdate")
 	private LocalDate birthDate;
 	
 	@OneToMany(mappedBy = "user")

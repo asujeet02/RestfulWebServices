@@ -74,11 +74,10 @@ public class UserJpaResource {
 			throw new UserNotFoundException("id:"+id);
 		
 		return user.get().getPosts();
-
 	}
 	
 	@PostMapping("/jpa/users")
-	public ResponseEntity<Object> createUser(@Valid @RequestBody User user)
+	public ResponseEntity<User> createUser(@Valid @RequestBody User user)
 	{
 		User savedUser = userRepository.save(user);
 		URI location=ServletUriComponentsBuilder.fromCurrentRequest()
@@ -89,7 +88,7 @@ public class UserJpaResource {
 	}
 	
 	@PostMapping("/jpa/users/{id}/posts")
-	public ResponseEntity<Object> createPostForUser(@PathVariable int id, @Valid @RequestBody Post post)
+	public ResponseEntity<Post> createPostForUser(@PathVariable int id, @Valid @RequestBody Post post)
 	{
 		Optional<User> user= userRepository.findById(id);
 		
